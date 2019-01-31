@@ -18,30 +18,71 @@ def upc(upc_code):
     even_sum = 0
     odd_sum = 0
 
-    for number in upc_code:
-        upc_list.append(number)
+    if len(upc_code) == 12:
+        for number in upc_code:
+            upc_list.append(number)
 
-    for x in range(0, len(upc_list)):
-        if x == len(upc_list)-1:
-            check = int(upc_list[x])
-        if x % 2 == 0:
-            even_sum += int(upc_list[x])
-        else:
-            odd_sum += int(upc_list[x])
+        for x in range(0, len(upc_list)):
+            if x == len(upc_list)-1:
+                check = int(upc_list[x])
+            if x % 2 == 0:
+                even_sum += int(upc_list[x])
+            else:
+                odd_sum += int(upc_list[x])
 
-    even_sum = even_sum * 3
-    modulo = (odd_sum - check) + even_sum
-    modulo_M = modulo % 10
-    if modulo_M == 0:
-        if modulo_M == check:
-            print "True"
+        even_sum = even_sum * 3
+        modulo = (odd_sum - check) + even_sum
+        modulo_M = modulo % 10
+        if modulo_M == 0:
+            if modulo_M == check:
+                print "Final number is correct"
+            else:
+                print "Final number is incorrect"
         else:
-            print "Check Failed"
+            if (10-modulo_M) == check:
+                print "True"
+            else:
+                print "False"
+    elif len(upc_code) == 11:
+        for number in upc_code:
+            upc_list.append(number)
+
+        for x in range(0, len(upc_list)):
+            if x % 2 == 0:
+                even_sum += int(upc_list[x])
+            else:
+                odd_sum += int(upc_list[x])
+
+        even_sum = even_sum * 3
+        modulo = odd_sum + even_sum
+        if modulo % 10 == 0:
+            print "The final number is %d" % ((modulo % 10))
+        else:
+            print "The final number is %d" % (10 - (modulo % 10))
     else:
-        if (10-modulo_M) == check:
-            print "True"
-        else:
-            print "False"
+        for number in upc_code:
+            upc_list.append(number)
 
+        length = len(upc_code)
+        length = 11 - length
+
+        append_list = [0] * length
+        upc_list = append_list + upc_list
+
+
+        for x in range(0, len(upc_list)):
+            if x % 2 == 0:
+                even_sum += int(upc_list[x])
+            else:
+                odd_sum += int(upc_list[x])
+
+        even_sum = even_sum * 3
+        modulo = (odd_sum) + even_sum
+        if modulo % 10 == 0:
+            print "The final number is %d" % ((modulo % 10))
+        else:
+            print "The final number is %d" % (10 - (modulo % 10))
 
 upc("036000291452")
+upc("03600029145")
+upc("1234567")
